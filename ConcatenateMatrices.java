@@ -123,4 +123,61 @@ public class ConcatenateMatrices {
 
         return result;
     }
+
+    public static class Test {
+        public static void main(String[] args) {
+            testJoinMatricesStrings();
+            testJoinMatricesIntegers();
+        }
+
+        public static void testJoinMatricesStrings() {
+            String[][] matrix1 = {
+                    {"a", "b"},
+                    {"c", "d"}
+            };
+            String[][] matrix2 = {
+                    {"e", "f"},
+                    {"g", "h"}
+            };
+
+            BiFunction<String, String, String> joinStrings = (a, b) -> a + b;
+
+            String[][] resultMatrix = ConcatenateMatrices.joinMatrices(matrix1, matrix2, joinStrings);
+            String[][] expectedMatrix = {
+                    {"ae", "bf"},
+                    {"cg", "dh"}
+            };
+            assertMatrixEquals(expectedMatrix, resultMatrix);
+        }
+
+        public static void testJoinMatricesIntegers() {
+            Integer[][] matrix1 = {
+                    {1, 3},
+                    {2, 4}
+            };
+            Integer[][] matrix2 = {
+                    {-4, -2},
+                    {-3, -1}
+            };
+
+            BiFunction<Integer, Integer, Integer> addIntegers = (a, b) -> a + b;
+
+            Integer[][] resultMatrix = ConcatenateMatrices.joinMatrices(matrix1, matrix2, addIntegers);
+            Integer[][] expectedMatrix = {
+                    {-3, 1},
+                    {-1, 3}
+            };
+            assertMatrixEquals(expectedMatrix, resultMatrix);
+        }
+
+        public static <T> void assertMatrixEquals(T[][] expected, T[][] actual) {
+            assert expected.length == actual.length : "Matrix dimensions mismatch";
+            for (int i = 0; i < expected.length; i++) {
+                assert expected[i].length == actual[i].length : "Row " + i + " dimensions mismatch";
+                for (int j = 0; j < expected[i].length; j++) {
+                    assert expected[i][j].equals(actual[i][j]) : "Element at [" + i + "," + j + "] mismatch";
+                }
+            }
+        }
+    }
 }
