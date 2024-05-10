@@ -20,6 +20,12 @@ public class ConcatenateMatrices {
         }
         int columns = scanner.nextInt();
 
+        if (rows < 0 || columns < 0) {
+            System.err.println("Nevhodne rozmery matice");
+            scanner.close();
+            return;
+        }
+
         String[][] matrix = new String[rows][]; //matica a jej vynulovanie
         for (int k = 0; k < rows; k++) {
             matrix[k] = new String[columns];
@@ -44,5 +50,6 @@ public class ConcatenateMatrices {
             }
         }
         scanner.close();
+        output.close();
     }
 }
